@@ -1,7 +1,7 @@
-# 💡 Lâmpada Interativa
+# 💡 Minha Primeira Página no Ar
 
 <p align="center">
-  Uma página web elegante e responsiva para acender e apagar uma lâmpada virtual.
+  Uma página simples e interativa feita para praticar HTML, CSS e JavaScript.
 </p>
 
 <p align="center">
@@ -16,37 +16,33 @@
 
 ## ✨ Sobre o projeto
 
-**Lâmpada Interativa** é um pequeno projeto front-end criado para praticar a integração entre HTML, CSS e JavaScript. Ao clicar no botão, o estado da lâmpada muda, e toda a página recebe feedback visual.
+Este projeto apresenta uma lâmpada virtual controlada por um botão. Ao clicar em **Ligar**, o estado da página muda: a lâmpada é acesa, o fundo fica claro e o botão passa a oferecer a opção **Desligar**.
 
-O projeto utiliza **JavaScript puro**, sem bibliotecas ou frameworks adicionais.
+O objetivo é demonstrar, de forma simples e didática, a interação entre elementos da página e eventos do JavaScript.
 
 ## 🎯 Funcionalidades
 
-- ✅ Acender e apagar a lâmpada
-- ✅ Atualização automática do texto de status
-- ✅ Alteração do fundo e do botão durante a ativação
-- ✅ Efeito de brilho e animações suaves
-- ✅ Layout responsivo para computadores e celulares
-- ✅ Compatibilidade com leitores de tela
-- ✅ Respeito à preferência de movimento reduzido
+- ✅ Alternar entre lâmpada ligada e desligada
+- ✅ Alterar o emoji exibido na página
+- ✅ Mostrar mensagens diferentes para cada estado
+- ✅ Trocar o texto do botão
+- ✅ Aplicar uma classe visual ao fundo da página
+- ✅ Fazer a transição do fundo de forma suave
 
-## 🖼️ Visual
+## 🖼️ Estados da lâmpada
 
-Quando apagada, a lâmpada apresenta um acabamento escuro e neutro. Ao ser acendida:
-
-- O corpo da lâmpada fica amarelo
-- O filamento ganha uma cor alaranjada
-- Um brilho surge ao redor da lâmpada
-- O botão muda de cor
-- O fundo recebe um leve efeito luminoso
+| Estado | Ícone | Fundo | Texto do botão |
+|---|---|---|---|
+| Apagada | 🌑 | Cinza escuro | Ligar |
+| Acesa | 💡 | Amarelo claro | Desligar |
 
 ## 📁 Estrutura dos arquivos
 
 ```text
-ia/
+professora/
 ├── index.html  # Estrutura da página
-├── styles.css  # Aparência, responsividade e animações
-├── script.js   # Comportamento e alternância da lâmpada
+├── style.css   # Aparência visual da página
+├── script.js   # Comportamento e interação
 └── README.md   # Documentação do projeto
 ```
 
@@ -54,86 +50,118 @@ ia/
 
 ### `index.html`
 
-O HTML monta a interface da página e contém:
+O arquivo HTML define a estrutura principal da página:
 
-- Um cabeçalho com título e descrição
-- Uma área chamada **lamp-stage**, que representa o ambiente da lâmpada
-- Os elementos da lâmpada: brilho, bulbo, filamento e suporte
-- Um texto com o estado atual
-- Um botão com ícone de energia
+- `<h1>` apresenta o título principal
+- `<p>` exibe a tecnologia utilizada
+- `<p id="lampada">` mostra a lâmpada usando um emoji
+- `<button id="interruptor">` funciona como interruptor
+- `<p id="aviso">` mostra o estado atual da luz
+- `<script src="script.js">` conecta o JavaScript à página
 
-O elemento `<strong>` dentro do status destaca visualmente a palavra **acesa** ou **apagada**.
+### `style.css`
 
-### `styles.css`
+O CSS define a aparência do projeto:
 
-O CSS é responsável por toda a aparência visual:
-
-- `body.light-on` modifica o fundo quando a lâmpada está acesa
-- `.glow` cria o efeito luminoso em volta da lâmpada
-- `.bulb` representa o vidro da lâmpada
-- `.socket` estiliza o suporte
-- `.power-button` cria o botão arredondado
-- `@media` adapta o projeto para telas menores
-- `prefers-reduced-motion` reduz os efeitos de movimento para usuários que solicitaram essa preferência
+- Centraliza o conteúdo com `margin: 24px auto`
+- Define largura máxima e espaçamento lateral
+- Usa uma fonte simples do sistema
+- Coloca o conteúdo no centro da página
+- Define o fundo escuro e o texto claro inicialmente
+- Muda as cores quando o corpo recebe a classe `acesa`
+- Personaliza o tamanho da lâmpada e o botão
+- Cria uma transição suave no fundo com `transition`
 
 ### `script.js`
 
-O JavaScript controla o estado da lâmpada:
+O JavaScript guarda o estado da lâmpada em uma variável:
 
 ```javascript
-let lightIsOn = false;
+let ligada = false;
 ```
 
-A variável `lightIsOn` guarda se a lâmpada está acesa ou apagada.
+O valor `false` significa que a lâmpada começa apagada.
 
-Dentro da função `toggleLight()`:
-
-1. O estado é invertido com `lightIsOn = !lightIsOn`.
-2. A classe `light-on` é adicionada ou removida do `<body>`.
-3. O atributo `aria-pressed` informa o estado atual para tecnologias assistivas.
-4. O texto do botão e do status são atualizados.
-
-Por fim:
+Depois, o código encontra os elementos importantes:
 
 ```javascript
-powerButton.addEventListener("click", toggleLight);
+const botao = document.querySelector("#interruptor");
+const lampada = document.querySelector("#lampada");
+const aviso = document.querySelector("#aviso");
 ```
 
-Faz com que a função seja executada sempre que o botão for clicado.
+Quando o botão recebe um clique:
 
-## ♿ Acessibilidade
+1. `ligada = !ligada` troca o estado atual.
+2. Se estiver ligada, o emoji muda para 💡.
+3. A mensagem e o texto do botão são atualizados.
+4. A classe `acesa` é adicionada ao elemento `<body>`.
+5. Se estiver apagada, a classe `acesa` é removida.
 
-A página utiliza recursos importantes de acessibilidade:
+O evento é registrado assim:
 
-- `aria-live="polite"` anuncia mudanças no status
-- `aria-pressed` informa se o botão está ativado
-- `aria-hidden="true"` evita a leitura de elementos decorativos
-- `:focus-visible` mostra uma borda ao navegar pelo teclado
-- A animação pode ser desativada conforme a preferência do sistema
+```javascript
+botao.addEventListener("click", function () {
+    // Código executado ao clicar
+});
+```
+
+## 🔄 Como funciona a alternância
+
+```text
+Estado inicial
+     ↓
+ligada = false
+     ↓
+Clique no botão
+     ↓
+ligada = !ligada  → true
+     ↓
+Lâmpada acesa
+     ↓
+Novo clique
+     ↓
+ligada = !ligada  → false
+     ↓
+Lâmpada apagada
+```
 
 ## 🚀 Como executar
 
-1. Abra a pasta `ia`.
-2. Abra o arquivo `index.html`.
-3. Clique no botão **Acender lâmpada**.
-4. Clique novamente em **Apagar lâmpada** para desligá-la.
+1. Abra a pasta `professora`.
+2. Abra o arquivo `index.html` no navegador.
+3. Clique em **Ligar** para acender a lâmpada.
+4. Clique em **Desligar** para retornar ao estado inicial.
 
-Também é possível executar o projeto com a extensão **Live Server** no Visual Studio Code.
+Também é possível utilizar a extensão **Live Server** no Visual Studio Code.
+
+## ⚠️ Observação sobre os estilos
+
+O HTML atual referencia `estilo.css`, mas o arquivo existente está nomeado como `style.css`.
+
+Para aplicar o CSS corretamente, há duas opções:
+
+- Renomear `style.css` para `estilo.css`, ou
+- Alterar a referência do HTML para:
+
+```html
+<link rel="stylesheet" href="style.css">
+```
 
 ## 🛠️ Tecnologias utilizadas
 
-- HTML5
-- CSS3
-- JavaScript
+- **HTML5** — estrutura da página
+- **CSS3** — estilos e animações
+- **JavaScript** — interação e mudança de estado
 
 ## 👨‍💻 Autor
 
 ### Murilo Santos
 
-Projeto desenvolvido para estudo e prática de desenvolvimento web.
+Projeto desenvolvido para aprendizado e prática de desenvolvimento web.
 
 ---
 
 <p align="center">
-  <strong>Feito com HTML, CSS e JavaScript 💛</strong>
+  <strong>Minha primeira página no ar — feita com HTML, CSS e JavaScript 💛</strong>
 </p>
